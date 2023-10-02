@@ -1,0 +1,611 @@
+ Ocsinventory/Map.pm | 59 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 59 insertions(+)
+
+diff --git a/Ocsinventory/Map.pm b/Ocsinventory/Map.pm
+index 36fce9b..3e71ffb 100644
+--- a/Ocsinventory/Map.pm
++++ b/Ocsinventory/Map.pm
+@@ -39,6 +39,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'NAME',
+    writeDiff => 0,
++   notifyUpdate => 0,
+    cache => 1,
+    fields => {
+        ID => { noXml => 1 },
+@@ -83,6 +84,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'TAG',
+    writeDiff => 0,
++   notifyUpdate => 0,
+    cache => 0,
+    fields => {
+        TAG => {}
+@@ -96,6 +98,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'SSN',
+    writeDiff => 0,
++   notifyUpdate => 0,
+    cache => 0,
+    fields => {
+        MMANUFACTURER => {},
+@@ -119,6 +122,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'CAPTION',
+    writeDiff => 1,
++   notifyUpdate => 1,
+    cache => 0,
+    fields =>  {
+        CAPACITY => {},
+@@ -139,6 +143,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'NAME',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 0,
+    fields =>  {
+        NAME => {},
+@@ -157,6 +162,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'NAME',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 1,
+    fields =>  {
+        NAME => { cache => 1 },
+@@ -171,6 +177,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'NAME',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 0,
+    fields =>  {
+        MANUFACTURER => {},
+@@ -189,6 +196,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'CAPTION',
+    writeDiff => 1,
++   notifyUpdate => 1,
+    cache => 0,
+    fields =>  {
+        MANUFACTURER => {},
+@@ -206,6 +214,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'NAME',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 0,
+    fields =>  {
+        NAME => {},
+@@ -222,6 +231,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'NAME',
+    writeDiff => 1,
++   notifyUpdate => 1,
+    cache => 0,
+    fields =>  {
+        MANUFACTURER => {},
+@@ -242,6 +252,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'VOLUMN',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 0,
+    fields =>  {
+        LETTER => {},
+@@ -262,6 +273,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'CAPTION',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 0,
+    fields =>  {
+        TYPE => {},
+@@ -280,6 +292,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'NAME',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 0,
+    fields =>  {
+        NAME => {},
+@@ -296,6 +309,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'IPADDRESS',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 0,
+    fields =>  {
+        IPADDRESS => {},
+@@ -321,6 +335,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'NAME',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 0,
+    fields =>  {
+        NAME => {},
+@@ -343,6 +358,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'NAME',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 0,
+    fields =>  {
+        NAME  => {},
+@@ -358,6 +374,7 @@ our %DATA_MAP= (
+    delOnReplace => 1,
+    sortBy => 'NAME',
+    writeDiff => 1,
++   notifyUpdate => 0,
+    cache => 0,
+    fields =>  {
+        NAME => {},
+@@ -382,6 +399,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'NAME',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     fields =>  {
+       NAME => {},
+@@ -401,6 +419,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'SERIALNUMBER',
+     writeDiff => 1,
++    notifyUpdate => 1,
+     cache => 0,
+     fields =>  {
+       MANUFACTURER => {},
+@@ -426,6 +445,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'SERIALNUMBER',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     fields =>  {
+       OPERATOR => {},
+@@ -444,6 +464,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'NAME',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     fields => {
+       LOCATION => {},
+@@ -467,6 +488,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'DESCRIPTION',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     fields => {
+       DESCRIPTION => {},
+@@ -484,6 +506,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'NAME',
+     writeDiff => 0,
++    notifyUpdate => 0,
+     cache => 0,
+     fields => {
+       BASEURL => {},
+@@ -508,6 +531,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'JAVANAME',
+     writeDiff => 0,
++    notifyUpdate => 0,
+     cache => 0,
+     fields => {
+       JAVANAME => { fallback=>'noname' },
+@@ -525,6 +549,7 @@ our %DATA_MAP= (
+     delOnReplace => 0,
+     sortBy => '',
+     writeDiff => 0,
++    notifyUpdate => 0,
+     cache => 0,
+     fields => {
+       JOURNALLOG => {},
+@@ -542,6 +567,7 @@ our %DATA_MAP= (
+     delOnReplace => 0,
+     sortBy => 'DATE_INSERT',
+     writeDiff => 0,
++    notifyUpdate => 0,
+     cache => 0,
+     fields =>  {
+       COMMENTS => {},
+@@ -559,6 +585,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'NAME',
+     writeDiff => 0,
++    notifyUpdate => 0,
+     cache => 0,
+     fields =>  {
+       NAME => {},
+@@ -575,6 +602,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'PKD_ID',
+     writeDiff => 0,
++    notifyUpdate => 0,
+     cache => 0,
+     fields =>  {
+       PKG_ID => {},
+@@ -589,6 +617,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'GROUP_ID',
+     writeDiff => 0,
++    notifyUpdate => 0,
+     cache => 0,
+     fields =>  {
+       GROUP_ID => {},
+@@ -603,6 +632,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'IPADDRESS',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -629,6 +659,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'NAME',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -647,6 +678,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -668,6 +700,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -683,6 +716,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -698,6 +732,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -715,6 +750,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'NAME',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -732,6 +768,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'DESCRIPTION',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -750,6 +787,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -782,6 +820,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -803,6 +842,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -825,6 +865,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -844,6 +885,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -863,6 +905,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -884,6 +927,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'TYPE',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -898,6 +942,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -912,6 +957,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -929,6 +975,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -943,6 +990,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -959,6 +1007,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -974,6 +1023,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -989,6 +1039,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -1003,6 +1054,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -1017,6 +1069,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -1031,6 +1084,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -1045,6 +1099,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -1065,6 +1120,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'TAG',
+     writeDiff => 0,
++    notifyUpdate => 0,
+     cache => 0,
+     fields => {
+       TAG => {}
+@@ -1078,6 +1134,7 @@ our %DATA_MAP= (
+     delOnReplace => 0,
+     sortBy => '',
+     writeDiff => 1,
++    notifyUpdate => 0,
+     cache => 0,
+     capacities => 'snmp',
+     fields =>  {
+@@ -1117,6 +1174,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'NAME',
+     writeDiff => 0,
++    notifyUpdate => 0,
+     cache => 0,
+     fields => {
+       ID_USER => {},
+@@ -1135,6 +1193,7 @@ our %DATA_MAP= (
+     delOnReplace => 1,
+     sortBy => 'NAME',
+     writeDiff => 0,
++    notifyUpdate => 0,
+     cache => 0,
+     fields => {
+       ID_GROUP => {},
+ Ocsinventory/Server/Inventory/Data.pm | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Ocsinventory/Server/Inventory/Data.pm b/Ocsinventory/Server/Inventory/Data.pm
+index 16e9d8d..5b0700b 100644
+--- a/Ocsinventory/Server/Inventory/Data.pm
++++ b/Ocsinventory/Server/Inventory/Data.pm
+@@ -61,6 +61,7 @@ sub _init_map{
+     $sectionsMeta->{$section}->{mask} = $DATA_MAP{$section}->{mask};
+     $sectionsMeta->{$section}->{delOnReplace} = 1 if $DATA_MAP{$section}->{delOnReplace};
+     $sectionsMeta->{$section}->{writeDiff} = 1 if $DATA_MAP{$section}->{writeDiff};
++    $sectionsMeta->{$section}->{notifyUpdate} = 1 if $DATA_MAP{$section}->{notifyUpdate};
+     $sectionsMeta->{$section}->{cache} = 1 if $DATA_MAP{$section}->{cache};
+     $sectionsMeta->{$section}->{mandatory} = 1 if $DATA_MAP{$section}->{mandatory};
+     $sectionsMeta->{$section}->{auto} = 1 if $DATA_MAP{$section}->{auto};
+ Ocsinventory/Server/Inventory/Update.pm | 42 ++++++++++++++++++++++++++++-----
+ 1 file changed, 36 insertions(+), 6 deletions(-)
+
+diff --git a/Ocsinventory/Server/Inventory/Update.pm b/Ocsinventory/Server/Inventory/Update.pm
+index 9da1a62..7e830f6 100644
+--- a/Ocsinventory/Server/Inventory/Update.pm
++++ b/Ocsinventory/Server/Inventory/Update.pm
+@@ -29,7 +29,7 @@ use Apache::Ocsinventory::Server::Inventory::Software;
+ use Apache::Ocsinventory::Interface::SoftwareCategory;
+ use Apache::Ocsinventory::Interface::AssetCategory;
+ use Apache::Ocsinventory::Interface::Saas;
+-
++use Encode;
+ use strict;
+ 
+ require Exporter;
+@@ -81,7 +81,7 @@ sub _update_inventory_section{
+   my $deviceId = $Apache::Ocsinventory::CURRENT_CONTEXT{'DATABASE_ID'};
+   my $result = $Apache::Ocsinventory::CURRENT_CONTEXT{'XML_ENTRY'};
+   my $dbh = $Apache::Ocsinventory::CURRENT_CONTEXT{'DBI_HANDLE'};
+-	
++
+   # The computer exists. 
+   # We check if this section has changed since the last inventory (only if activated)
+   # We delete the previous entries
+@@ -105,7 +105,7 @@ sub _update_inventory_section{
+     }
+   }
+ 
+-  # DEL AND REPLACE, or detect diff on elements of the section (more load on frontends, less on DB backend)
++  # DEL AND REPLACE, or detect diff on elements of the section (more load on frontends, less on DB backend)
+   if($Apache::Ocsinventory::CURRENT_CONTEXT{'EXIST_FL'} && $ENV{'OCS_OPT_INVENTORY_WRITE_DIFF'} && $sectionMeta->{writeDiff}){
+     my @fromDb;
+     my @fromXml;
+@@ -123,6 +123,8 @@ sub _update_inventory_section{
+     #TODO: Sorting XML entries, to compare more quickly with DB elements
+     my $new=0;
+     my $del=0;
++    my $hardware_diff_added;
++    my $hardware_diff_removed;
+     for my $l_xml (@fromXml){
+       my $found = 0;
+       for my $i_db (0..$#fromDb){
+@@ -130,27 +132,41 @@ sub _update_inventory_section{
+         my @line = @{$fromDb[$i_db]};
+         my $comp_xml = join '', @$l_xml;
+         my $comp_db = join '', @line[2..$#line];
++        $comp_xml = encode("UTF-8", $comp_xml);
+         if( $comp_db eq $comp_xml ){
+           $found = 1;
+           # The value has been found, we have to delete it from the db list
+-          # (elements remaining will be deleted)
++          # (elements remaining will be deleted)
+           delete $fromDb[$i_db];
+           last;
+         }
+       }
+       if(!$found){
+         $new++;
++        if ($sectionMeta->{notifyUpdate}){
++          my $addedHardware = join ',',@$l_xml;
++          $addedHardware =~ s/,+$//;
++          $hardware_diff_added = $hardware_diff_added ne '' ? "$hardware_diff_added, \"$addedHardware\"" : "\"$addedHardware\"";
++        }
+         $dbh->do( $sectionMeta->{sql_insert_string}, {}, $deviceId, @$l_xml ) or return 1;
+         if( $ENV{OCS_OPT_INVENTORY_CACHE_ENABLED} && $sectionMeta->{cache} ){
+           &_cache( 'add', $section, $sectionMeta, $l_xml );
+         }
+       }
+     }
++
+     # Now we have to delete from DB elements that still remain in fromDb
+     for (@fromDb){
+       next if !defined (${$_}[0]);
++      if ($sectionMeta->{notifyUpdate}){
++        my @slice = @{$_};
++        splice @slice, 0, 2;
++        my $removedHardware = join ',',@slice;
++        $removedHardware =~ s/,+$//;
++        $hardware_diff_removed = $hardware_diff_removed ne '' ? "$hardware_diff_removed, \"$removedHardware\"" : "\"$removedHardware\"";
++      }
+       $del++;
+-      $dbh->do( $sectionMeta->{sql_delete_string}, {}, $deviceId, ${$_}[0]) or return 1;
++      $dbh->do($sectionMeta->{sql_delete_string}, {}, $deviceId, ${$_}[0]) or return 1;
+       my @ldb = @$_;
+       @ldb = @ldb[ 2..$#ldb ];
+       if( $ENV{OCS_OPT_INVENTORY_CACHE_ENABLED} && $sectionMeta->{cache} && !$ENV{OCS_OPT_INVENTORY_CACHE_KEEP}){
+@@ -158,6 +174,20 @@ sub _update_inventory_section{
+       }
+     }
+     if( $new||$del ){
++      if ($sectionMeta->{notifyUpdate}){
++        my $hardware_diff_fields = join ',', @{$sectionMeta->{field_arrayref}};
++        $hardware_diff_fields =~ s/`/"/g;
++        my $event_id = $result->{CONTENT}->{EVENT_ID};
++        if (!$event_id){
++          my $ipaddress = $Apache::Ocsinventory::CURRENT_CONTEXT{'IPADDRESS'};
++          my $query = "INSERT INTO `hardware_change_events` (HARDWARE_ID, IP_ADDRESS, NAME, USERNAME) VALUES ($deviceId, \"$ipaddress\", \"".$result->{CONTENT}->{HARDWARE}->{NAME}."\", \"".$result->{CONTENT}->{HARDWARE}->{USERID}."\")";
++          $dbh->do($query);
++          $event_id = $dbh->{mysql_insertid}; 
++          $result->{CONTENT}->{EVENT_ID} = $event_id;
++        }
++        my $query = "INSERT INTO `hardware_change_events_data` (EVENT_ID, SECTION, FIELDS, HARDWARE_ADDED, HARDWARE_REMOVED) VALUES ($event_id, \"$section\", \"".$dbh->quote($hardware_diff_fields)."\", \"".$dbh->quote($hardware_diff_added)."\", \"".$dbh->quote($hardware_diff_removed)."\")";
++        $dbh->do($query);
++      }
+       &_log( 113, 'write_diff', "ch:$section(+$new-$del)") if $ENV{'OCS_OPT_LOGLEVEL'};
+     }
+   }
+@@ -166,7 +196,7 @@ sub _update_inventory_section{
+     my $sth = $dbh->prepare( $sectionMeta->{sql_insert_string} );
+     # Multi lines (forceArray)
+     my $refXml = $result->{CONTENT}->{uc $section};
+-    
++
+     if($sectionMeta->{multi}){
+       for my $line (@$refXml){
+         &_get_bind_values($line, $sectionMeta, \@bind_values);

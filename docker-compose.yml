@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  ocsapplication:
+    image: adrianrp1988/ocsinventory-server:2.12
+    build: ./build
+    container_name : ocsinventory-server
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - "perlcomdata:/etc/ocsinventory-server"
+      - "ocsreportsdata:/usr/share/ocsinventory-reports/ocsreports/extensions"
+      - "varlibdata:/var/lib/ocsinventory-reports"
+    environment:
+      OCS_DB_SERVER: mysql-server
+      OCS_DB_USER: dbuser
+      OCS_DB_PASS: dbpass
+      OCS_DB_NAME: ocsweb
+
+volumes:
+  perlcomdata:
+  ocsreportsdata:
+  varlibdata:
+  
