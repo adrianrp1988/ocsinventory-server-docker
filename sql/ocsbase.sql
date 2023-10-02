@@ -2672,7 +2672,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `hardware_change_events`;
 CREATE TABLE `hardware_change_events` (
-  `ID` INT NOT NULL,
+  `ID` INT NOT NULL AUTO_INCREMENT,
   `HARDWARE_ID` INT NOT NULL,
   `IP_ADDRESS` varchar(100) NULL,
   `NAME` varchar(255) NOT NULL,
