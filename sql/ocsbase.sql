@@ -2679,6 +2679,7 @@ CREATE TABLE `hardware_change_events` (
   `USERNAME` varchar(255) NOT NULL,
   `LAST_SCAN_DATETIME` varchar(100) NULL,  
   `LOGDATE` DATETIME DEFAULT NOW(),
+  `LAST_SCAN_DATETIME` varchar(100) NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
