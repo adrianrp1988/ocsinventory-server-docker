@@ -2677,6 +2677,7 @@ CREATE TABLE `hardware_change_events` (
   `IP_ADDRESS` varchar(100) NULL,
   `NAME` varchar(255) NOT NULL,
   `USERNAME` varchar(255) NOT NULL,
+  `LAST_SCAN_DATETIME` varchar(100) NULL,  
   `LOGDATE` DATETIME DEFAULT NOW(),
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -589,7 +589,7 @@ index 9da1a62..7e830f6 100644
 +        my $event_id = $result->{CONTENT}->{EVENT_ID};
 +        if (!$event_id){
 +          my $ipaddress = $Apache::Ocsinventory::CURRENT_CONTEXT{'IPADDRESS'};
-+          my $query = "INSERT INTO `hardware_change_events` (HARDWARE_ID, IP_ADDRESS, NAME, USERNAME) VALUES ($deviceId, \"$ipaddress\", \"".$result->{CONTENT}->{HARDWARE}->{NAME}."\", \"".$result->{CONTENT}->{HARDWARE}->{USERID}."\")";
++          my $query = "INSERT INTO `hardware_change_events` (HARDWARE_ID, IP_ADDRESS, NAME, USERNAME, LAST_SCAN_DATETIME) VALUES ($deviceId, \"$ipaddress\", \"".$result->{CONTENT}->{HARDWARE}->{NAME}."\", \"".$result->{CONTENT}->{HARDWARE}->{USERID}."\", \"".$result->{CONTENT}->{HARDWARE}->{LASTCOME}."\")";
 +          $dbh->do($query);
 +          $event_id = $dbh->{mysql_insertid}; 
 +          $result->{CONTENT}->{EVENT_ID} = $event_id;
