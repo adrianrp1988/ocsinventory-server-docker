@@ -8,7 +8,7 @@ LABEL maintainer="adrianrp1988@gmail.com" \
 
 WORKDIR /usr/local/share/perl/5.34.0/Apache/
 
-COPY ./Ocsinventory .
+COPY ./Ocsinventory ./Ocsinventory
 
 EXPOSE 80
 
