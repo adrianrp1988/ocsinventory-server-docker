@@ -7,8 +7,9 @@ LABEL maintainer="adrianrp1988@gmail.com" \
       description="OCS Inventory docker image with hardware change logs"
 
 WORKDIR /usr/local/share/perl/5.34.0/Apache/
-COPY ./hardware_change_notification.diff .
-RUN patch -p1 < hardware_change_notification.diff && rm hardware_change_notification.diff
+
+COPY ./Ocsinventory .
+
 EXPOSE 80
 
 # https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#entrypoint
