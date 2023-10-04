@@ -81,7 +81,6 @@ sub _update_inventory_section{
   my $deviceId = $Apache::Ocsinventory::CURRENT_CONTEXT{'DATABASE_ID'};
   my $result = $Apache::Ocsinventory::CURRENT_CONTEXT{'XML_ENTRY'};
   my $dbh = $Apache::Ocsinventory::CURRENT_CONTEXT{'DBI_HANDLE'};
-  print STDERR $Apache::Ocsinventory::$CURRENT_CONTEXT{'DETAILS'};
 
   # The computer exists. 
   # We check if this section has changed since the last inventory (only if activated)
@@ -181,7 +180,7 @@ sub _update_inventory_section{
         my $event_id = $result->{CONTENT}->{EVENT_ID};
         if (!$event_id){
           my $ipaddress = $Apache::Ocsinventory::CURRENT_CONTEXT{'IPADDRESS'};
-          my $query = "INSERT INTO `hardware_change_events` (HARDWARE_ID, IP_ADDRESS, NAME, USERNAME, LAST_SCAN_DATETIME) VALUES ($deviceId, \"$ipaddress\", \"".$result->{CONTENT}->{HARDWARE}->{NAME}."\", \"".$result->{CONTENT}->{HARDWARE}->{USERID}."\", \"".$result->{CONTENT}->{HARDWARE}->{LASTCOME}."\")";
+          my $query = "INSERT INTO `hardware_change_events` (HARDWARE_ID, IP_ADDRESS, NAME, USERNAME, LAST_SCAN_DATETIME) VALUES ($deviceId, \"$ipaddress\", \"".$result->{CONTENT}->{HARDWARE}->{NAME}."\", \"".$result->{CONTENT}->{HARDWARE}->{USERID}."\",  FROM_UNIXTIME(\"".$Apache::Ocsinventory::CURRENT_CONTEXT{'DETAILS'}->{'LCOME'}."\"))";
           $dbh->do($query);
           $event_id = $dbh->{mysql_insertid}; 
           $result->{CONTENT}->{EVENT_ID} = $event_id;
