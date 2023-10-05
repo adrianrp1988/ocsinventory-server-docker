@@ -85,14 +85,14 @@ sub _update_inventory_section{
   # The computer exists. 
   # We check if this section has changed since the last inventory (only if activated)
   # We delete the previous entries
-  if($Apache::Ocsinventory::CURRENT_CONTEXT{'EXIST_FL'}){
+    if($Apache::Ocsinventory::CURRENT_CONTEXT{'EXIST_FL'}){
     if($ENV{'OCS_OPT_INVENTORY_DIFF'}){
       if( _has_changed($section) ){
-        &_log( 113, 'inventory', "u:$section") if $ENV{'OCS_OPT_LOGLEVEL'};
+                &_log( 113, 'inventory', "u:$section") if $ENV{'OCS_OPT_LOGLEVEL'};
         $sectionMeta->{hasChanged} = 1;
       }
       else{
-        return 0;
+                return 0;
       }
     }
     else{
@@ -133,6 +133,8 @@ sub _update_inventory_section{
         my $comp_xml = join '', @$l_xml;
         my $comp_db = join '', @line[2..$#line];
         $comp_xml = encode("UTF-8", $comp_xml);
+        $comp_xml =~ s/,*0+,*/,0,/g;
+        $comp_db =~ s/,*0+,*/,0,/g;
         if( $comp_db eq $comp_xml ){
           $found = 1;
           # The value has been found, we have to delete it from the db list
@@ -180,7 +182,7 @@ sub _update_inventory_section{
         my $event_id = $result->{CONTENT}->{EVENT_ID};
         if (!$event_id){
           my $ipaddress = $Apache::Ocsinventory::CURRENT_CONTEXT{'IPADDRESS'};
-          my $query = "INSERT INTO `hardware_change_events` (HARDWARE_ID, IP_ADDRESS, NAME, USERNAME, LAST_SCAN_DATETIME) VALUES ($deviceId, \"$ipaddress\", \"".$result->{CONTENT}->{HARDWARE}->{NAME}."\", \"".$result->{CONTENT}->{HARDWARE}->{USERID}."\",  FROM_UNIXTIME(\"".$Apache::Ocsinventory::CURRENT_CONTEXT{'DETAILS'}->{'LCOME'}."\"))";
+          my $query = "INSERT INTO `hardware_change_events` (HARDWARE_ID, IP_ADDRESS, NAME, USERNAME, LAST_SCAN_DATETIME) VALUES ($deviceId, \"$ipaddress\", \"".$result->{CONTENT}->{HARDWARE}->{NAME}."\", \"".$result->{CONTENT}->{HARDWARE}->{USERID}."\", FROM_UNIXTIME(\"".$Apache::Ocsinventory::CURRENT_CONTEXT{'DETAILS'}->{'LCOME'}."\"))";
           $dbh->do($query);
           $event_id = $dbh->{mysql_insertid}; 
           $result->{CONTENT}->{EVENT_ID} = $event_id;
@@ -222,5 +224,5 @@ sub _update_inventory_section{
   }
   $dbh->commit unless $ENV{'OCS_OPT_INVENTORY_TRANSACTION'};
   0;
-}
+  }
 1;
